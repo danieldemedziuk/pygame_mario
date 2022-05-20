@@ -78,17 +78,21 @@ class Level:
     def run(self):
         # run the entire game /level
 
+        # background palms
+        self.bg_palm_sprites.update(self.world_shift)
+        self.bg_palm_sprites.draw(self.display_surface)
+
         # terrain
         self.terrain_sprites.update(self.world_shift)
         self.terrain_sprites.draw(self.display_surface)
 
-        # grass
-        self.grass_sprites.update(self.world_shift)
-        self.grass_sprites.draw(self.display_surface)
-
         # crate
         self.crate_sprites.update(self.world_shift)
         self.crate_sprites.draw(self.display_surface)
+
+        # grass
+        self.grass_sprites.update(self.world_shift)
+        self.grass_sprites.draw(self.display_surface)
 
         # coins
         self.coin_sprites.update(self.world_shift)
@@ -102,7 +106,5 @@ class Level:
         self.fg_palm_sprites.update(self.world_shift)
         self.fg_palm_sprites.draw(self.display_surface)
 
-        # background palms
-        self.bg_palm_sprites.update(self.world_shift)
-        self.bg_palm_sprites.draw(self.display_surface)
+
 
