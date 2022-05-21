@@ -1,9 +1,9 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics
-from settings import tile_size
+from settings import tile_size, screen_width, screen_height
 from tiles import Tile, StaticTile, Crate, Coin, Palm
 from enemy import Enemy
-from decoration import Sky
+from decoration import Sky, Water
 
 
 class Level:
@@ -52,6 +52,8 @@ class Level:
 
         # decoration
         self.sky = Sky(8)
+        level_width = len(terrain_layout[0]) * tile_size
+        self.water = Water(screen_height - 20, level_width)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -160,5 +162,8 @@ class Level:
         # player
         self.goal.update(self.world_shift)
         self.goal.draw(self.display_surface)
+
+        # water
+        self.water.draw(self.display_surface, self.world_shift)
 
 
