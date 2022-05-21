@@ -3,6 +3,7 @@ from support import import_csv_layout, import_cut_graphics
 from settings import tile_size
 from tiles import Tile, StaticTile, Crate, Coin, Palm
 from enemy import Enemy
+from decoration import Sky
 
 
 class Level:
@@ -48,6 +49,9 @@ class Level:
         # constraint
         constraint_layout = import_csv_layout(level_data['constraints'])
         self.constraint_sprites = self.create_tile_group(constraint_layout, 'constraints')
+
+        # decoration
+        self.sky = Sky(8)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -102,7 +106,7 @@ class Level:
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val != "0":
-
+                    pass
                 if val == '1':
                     hat_surface = pygame.image.load('../graphics/character/hat.png').convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
@@ -115,6 +119,9 @@ class Level:
 
     def run(self):
         # run the entire game /level
+
+        # decoration
+        self.sky.draw(self.display_surface)
 
         # background palms
         self.bg_palm_sprites.update(self.world_shift)
@@ -153,3 +160,5 @@ class Level:
         # player
         self.goal.update(self.world_shift)
         self.goal.draw(self.display_surface)
+
+
