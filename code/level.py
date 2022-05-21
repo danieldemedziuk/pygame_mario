@@ -11,6 +11,12 @@ class Level:
         self.display_surface = surface
         self.world_shift = 0
 
+        # player
+        player_layout = import_csv_layout(level_data['player'])
+        self.player = pygame.sprite.GroupSingle()
+        self.goal = pygame.sprite.GroupSingle()
+        self.player_setup(player_layout)
+
         # terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
@@ -90,6 +96,18 @@ class Level:
 
         return sprite_group
 
+    def player_setup(self, layout):
+        for row_index, row in enumerate(layout):
+            for col_index, val in enumerate(row):
+                x = col_index * tile_size
+                y = row_index * tile_size
+                if val != "0":
+
+                if val == '1':
+                    hat_surface = pygame.image.load('../graphics/character/hat.png').convert_alpha()
+                    sprite = StaticTile(tile_size, x, y, hat_surface)
+                    self.goal.add(sprite)
+
     def enemy_collision_reverse(self):
         for enemy in self.enemy_sprites.sprites():
             if pygame.sprite.spritecollide(enemy, self.constraint_sprites, False):
@@ -131,3 +149,7 @@ class Level:
         # coins
         self.coin_sprites.update(self.world_shift)
         self.coin_sprites.draw(self.display_surface)
+
+        # player
+        self.goal.update(self.world_shift)
+        self.goal.draw(self.display_surface)
