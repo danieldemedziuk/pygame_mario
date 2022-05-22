@@ -56,4 +56,3 @@ class Palm(AnimatedTile):
         super().__init__(size, x, y, path)
         offset_y = y - offset
         self.rect.topleft = (x, offset_y)
-
